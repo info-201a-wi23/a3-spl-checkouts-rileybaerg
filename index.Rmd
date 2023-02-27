@@ -5,82 +5,51 @@ output: html_document
 
 ### Introduction
 
-An introduction of the data and a description of the trends/books/items you are choosing to analyze (and why!)
+This data comes from the Seattle Public Library's current public record of the checkout data of all titles in the 2022-2023 calendar year. I am particularly interested in seeing how particular authors of the past compare to one another in this day and age. To test this I wanted to choose writers who have had a significant effect on generations of children with impact imagery and empathetic storytelling. I have chosen two memorable authors of my childhood to compare the current relevance of Dr. Seuss and Eric Carle. What I seek to determine is the current interest in the books that were my favorite as a kid. To set a bar I will be looking out for the titles "The  Very Hungry Catarpillar" by Eric Carle and "The Cat in the Cat" by Dr. Seuss.
 
 ### Summary Information
+```{r echo=FALSE, include=FALSE, warning=FALSE, message=FALSE}
+source("summary.R")
+```
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
-
-These will likely be calculated using your DPLYR skills, answering questions such as:
-
-- What is the average number of checkouts for each item?
-- What is the month or year with the most/least checkouts for a book that you're interested in?
-- What is the month or year with the most/least checkouts for ebooks?
-- How has the number of print book checkouts changed over time?
-
-Feel free to calculate and report values that you find relevant.
+The checkout data from Seattle Public Library's current record of all titles in the 2022-2023 calendar year was analyzed to compare the current relevance of two memorable children's authors, Dr. Seuss and Eric Carle. The summary statistics revealed that "The Very Hungry Caterpillar"'s Somali translation, "`r carle_least_checkouts`" had the least number of checkouts by Eric Carle while his other title, "`r carle_most_checkouts`", had the most checkouts in the data frame. A closer look at Carle's data would show "The Very Hungry Caterpillar", comes close to the most popular title with the second-most checkouts. On the other hand, the statistics show that Dr. Seuss's title's have an average of `r dr_seuss_avg_checkouts` checkouts per title. This is slightly larger than Carle's average of `r carle_avg_checkouts` checkouts per title. It should also be noted that there are more Seuss (`r n_seuss`) titles than Carle (`r n_carle`) titles. To delve deeper into the scope of these author's titles/publications I found the oldest title by Eric Carle, "`r oldest_carle_title`", and the publication year(s) (`r oldest_carle_year`). In addition I looked into the newest title from the now deceased Dr. Seuss, "`r newest_seuss_title`", and its publication year (`r newest_seuss_year`). None of the most popular books were the ones I guessed from this surface discovery but it was interesting to find that the SPL finds spiders more interesting than hungry caterpillars.
 
 ### The Dataset
 
-- Who collected/published the data?  
-- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
-- How was the data collected or generated?  
-- Why was the data collected?  
-- What, if any, ethical questions do you need to consider when working with this data?  
-- What are possible limitations or problems with this data?   (at least 200 words)
+- This data is collected and published by the Seattle Public Library (SPL), this collection is ongoing.
+- There are a total of 12 variables in this dataset: Usage class (i.e. physical, digital), checkout type (i.e. Horizon, OverDrive), material type (i.e. book, audiobook), checkout year, checkout month, checkouts (these three all as integers), title, ISBN rating, creator, subjects (i.e. Health & Fitness, Operas), publisher, and publication year (these rest as plain text).
+- SPL gathers information on how its electronic resources—including e-books, databases, and online journals—are used. The library may use this information to assess the value of its digital resources and make wise purchase decisions. SirsiDynix Symphony is an integrated library management system (ILS) that SPL employs to track information about patron registration, item holdings, circulation, and other library activities.
+- Understanding SPL users' borrowing habits is the main goal of gathering this data. Librarians and library administrators can utilize this information to guide decisions about funding, collection development, and other operational tasks. It can also assist academics, writers, and publishers in learning more about Seattle residents' reading interests and trends. 
+- There are various ethical issues to think about when using this data. First first, the data could possibly violate readers' privacy because it includes information about book titles, authors, and genres. Thus, proper steps must be taken to ensure that borrowers' identity is maintained while this data is being analyzed. Second, because the information is open to the public, discriminatory uses like profiling or focusing on specific communities are possible. So, it is crucial to use this data in an ethical and responsible manner.
+- First off, borrowing from other libraries or online sources is not taken into account in the data set; rather, it solely accounts for borrowing within SPL. As a result, it might not accurately reflect the reading habits of Seattle's total population. The data set's utility for figuring out the reading preferences of particular populations is also constrained by the absence of demographic data on borrowers. Also, it's likely that the data may not correctly reflect the borrowing behavior of specific groups, such as people who favor using the physical rather than digital resources available at the library. Second, the collection excludes data on the justifications for borrowing a specific item. As a result, it is impossible for researchers to tell if a book was borrowed for fun, research, or any other reason. It may be difficult to accurately infer reading interests and habits from this restriction. Thirdly, because the data set is in raw format, it might need to be cleaned, filtered, or transformed before it can be studied. This can take a lot of time and may call for specific knowledge and equipment. Finally, there is a chance of privacy infractions, just like with any data set containing personal data. The data set includes data on book authors, genres, and titles, which may betray readers' interests and violate their privacy. Thus, proper steps must be taken to ensure that borrowers' identity is maintained while this data is being analyzed.
 
 
 ### First Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+This first chart visualizes the number of checkouts for each publication by the authors Dr. Seuss and Eric Carle in the sPL database. From the visual we can infer the duration history of each of these authors career publications within Seattle's library. A noticeable pattern in this graph is the spot in which author his their apex e.g. when the author released the title most checked out in the library. These "classic" publications come plus or minus fifteen years into their publication history. This huge leap in checkouts is followed by a sizable stint of publication checkouts jumping back and forth in relevance. It is also interesting to note the longevity of Dr. Seuss's career considering he passed in 1991 and the popularity of his posthumous pieces did NOT do well in comparison to the rest of his publications. On the other hand, in light of Eric Carle's passing in 2021, his current publications are being checked out a considerable amount of times. This information suggests that even though Eric Carle is no longer with us, his work continues to inspire and engage readers.Overall, the graph and text offer insightful information on how well-liked these two authors are as well as their individual publication histories. The contrast between the two authors also provides an intriguing viewpoint on how their works have affected readers and the literary community.
 
-The first chart that you will create and include will show the trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, warning = FALSE, code = readLines("chart1_example.R")}
+```{r echo=FALSE, include=TRUE, message=FALSE, warning=FALSE}
+# loading in the R source code for the first time chart
+source("chart1.R")
+publications_total_checkouts
 ```
 
 ### Second Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+I created this chart to visualize the current appeal of some widely-knows books by Dr. Seuss and Eric Carle. For this demonstration, I chose a well-known book (The most widely recognizable) from each of the authors: "The Very Hungry Caterpillar" by Eric Carle and "The Cat in the Hat" by Dr. Seuss. The end product shows an obvious difference in checkouts throughout the year between the two books which opens the doors to many possible inferences. The gap suggests that Dr. Seuss as an author is more well-known than Eric Carle as each of their most popular books show a difference in the level of interest. It pop culture and the author's history also suggests that Dr. Seuss's illustrations are highly recognizable and are therefore slightly more desired. It enables quick comparisons between the two authors and draws attention to the difference in their levels of popularity. The graph demonstrates that throughout the year, checkouts for "The Cat in the Hat" by Dr. Seuss were consistently greater than those for "The Very Hungry Caterpillar" by Eric Carle. Overall, the chart offers insightful information about how well-liked these authors' works are, which could help publishers, librarians, and bookshops plan their marketing campaigns.
 
-The second chart that you will create and include will show another trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+```{r echo=FALSE, include=TRUE}
+# loading in chart2 R file that will display the monthly checkouts of the two chosen books from the SPL data set.
+source("chart2.R")
+popular_checkouts_per_month
 ```
 
 ### Your Choice
 
-The last chart is up to you. It could be a line plot, scatter plot, histogram, bar plot, stacked bar plot, and more. Here are some requirements to help guide your design:
+Visualizing the percentage of checkouts between Eric Carle and Dr. Seuss over the course of the year is a crucial step in understanding the popularity and readership of these authors. The stacked bar chart provides a clear and concise way to compare the two authors' success over time. By examining the chart, we can see that Carle consistently had fewer checkouts than Dr. Seuss, indicating a difference in popularity between the two. This information can be useful for librarians and booksellers in managing their inventory and determining which titles to promote. They can use this data to stock their shelves with books that are in high demand, while also making sure they have enough copies of the less popular books to meet the needs of their patrons. Moreover, analyzing the percentage of checkouts provides insight into broader reading trends among children and parents. It can help identify popular themes and topics that resonate with readers and provide ideas for future publications. Additionally, it sheds light on how the works of these two authors continue to resonate with audiences today, highlighting their ongoing cultural relevance. This analysis can also inform future publishing decisions, as it offers a better understanding of what readers are looking for in children's literature.Overall, the stacked bar chart depicting the percentage of checkouts between Eric Carle and Dr. Seuss offers a valuable understanding of the cultural relevance of children's literature. It not only provides insight into the popularity of these two authors but also broader reading trends and preferences. By examining this data, we can better understand the interests of young readers and make informed decisions about what books to promote and publish in the future.
 
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+```{r echo=FALSE, include=TRUE, message=FALSE, warning=FALSE}
+# loading in chart 3, a side by side barchart of the authors top ten subjects. 
+source("chart3.R")
+stacked_checkouts
 ```
-
-
